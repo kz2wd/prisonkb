@@ -16,9 +16,9 @@ class Prisonkb : JavaPlugin() {
     override fun onEnable() {
         plugin = this
         saveDefaultConfig()
+        PlayerListener  // declare before the mine listener
         MinesListener
         PlayerCache
-        PlayerListener
         val prisonCommands = PrisonCommands()
         getCommand("prison")?.setExecutor(prisonCommands)
         getCommand("prison")?.tabCompleter = prisonCommands

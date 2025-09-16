@@ -3,6 +3,8 @@ package org.cludivers.prisonkb
 import net.kyori.adventure.bossbar.BossBar
 import net.kyori.adventure.bossbar.BossBar.Overlay
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.format.NamedTextColor
+import net.kyori.adventure.text.format.TextDecoration
 import org.bukkit.Sound
 import org.bukkit.entity.Player
 import org.cludivers.prisonkb.PlayerCache.loadOrGetPlayer
@@ -18,15 +20,17 @@ fun Player.notifyBrokenBlock(message: Component, sound: Sound?) {
 fun Player.showRank() {
     val playerInfo = loadOrGetPlayer(this.uniqueId)
     val bars = this.activeBossBars()
-    val name = Component.text("Rank ").append(rankLetter(playerInfo.rank))
+    val name = Component.text("Mining Level ").color(NamedTextColor.DARK_GREEN)
+        .append(Component.text("${playerInfo.getMiningLevel()}").decorate(TextDecoration.BOLD).color(NamedTextColor.GOLD))
+        Component.text("Rank ").append(rankLetter(playerInfo.rank))
     bars.forEach {
         it.name(name)
-        it.progress(playerInfo.rankProgress())
+        it.progress(playerInfo.miningLevelProgress())
         return
     }
     // If no bars, create one!
     this.showBossBar(BossBar.bossBar(name,
-        playerInfo.rankProgress(),
+        playerInfo.miningLevelProgress(),
         BossBar.Color.PURPLE,
         Overlay.PROGRESS
     ))

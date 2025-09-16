@@ -4,24 +4,26 @@ import net.kyori.adventure.text.Component
 import java.lang.Math.clamp
 import java.util.*
 import kotlin.collections.HashMap
+import kotlin.math.ln
 import kotlin.math.min
+import kotlin.math.pow
+import kotlin.math.roundToInt
 
 data class PrisonPlayer(
     val uuid: UUID = UUID.randomUUID(),
     var rank: Int = 0, // 0==A, 25==Z
-    var rankXp: Double = 0.0,
+    var totalXp: Double = 0.0,
     var currency: Int = 0,
     var prestigePoints: Int = 0,
     var upgrades: MutableMap<String, Int> = HashMap()
 ) {
     companion object {
         // XP curve example: next rank requires previous * factor + base
-        fun xpForRank(rank: Int): Double {
+        fun moneyForRank(rank: Int): Int {
 // rank 0 -> next rank requires 50, rank 1->100... geometric
-            if (rank <= 0) return 50.0
-            return 50.0 * Math.pow(1.6, (rank - 1).toDouble())
+            if (rank <= 0) return 50
+            return (50.0 * 1.6.pow((rank - 1).toDouble())).toInt()
         }
-
 
         fun rankLetter(rank: Int): Component {
             return Ranks.getRank(rank).getComponent()
@@ -36,16 +38,20 @@ data class PrisonPlayer(
         )
     }
 
+    fun getMiningLevel(): Int {
+        val rank = 1 + ln(totalXp / 50.0) / ln(1.6)
+        return rank.roundToInt().coerceAtLeast(1)
+    }
 
     fun getXpBonusMultiplier(): Double {
         val lvl = upgrades["xp_boost"] ?: 0
-        return 1.0 + lvl * 0.15 // 15% per level
+        return 1.0 + (getMiningLevel() + lvl ) * 0.15 // 15% per level
     }
 
 
     fun getCurrencyBonusMultiplier(): Double {
         val lvl = upgrades["coin_boost"] ?: 0
-        return 1.0 + lvl * 0.15
+        return 1.0 + (getMiningLevel() + lvl) * 0.15
     }
 
 
@@ -54,7 +60,11 @@ data class PrisonPlayer(
         return 1.0 - min(0.5, lvl * 0.12) // up to 50% reduction
     }
 
-    fun rankProgress(): Float {
-        return clamp((this.rankXp / PrisonPlayer.xpForRank(this.rank + 1)).toFloat(), 0.0f, 1.0f)
+    fun miningLevelProgress(): Float {
+        return clamp((this.totalXp / moneyForRank(this.rank + 1)).toFloat(), 0.0f, 1.0f)
+    }
+
+    fun getPrestigeMultiplier(): Double {
+        return 1.0 + this.prestigePoints * 0.02 // each prestige point +2% gain
     }
 }

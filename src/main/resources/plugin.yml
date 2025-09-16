@@ -5,9 +5,21 @@ description: Prison plugin
 author: kz2wd
 api-version: '1.21.8'
 commands:
-  prison:
+  stats:
     description: Show your prison stats (rank, xp, currency, prestige)
-    usage: /prison
+    usage: /stats
+  sellall:
+    description: Sell all your mined items
+    usage: /sellall
+  mine:
+    description: Teleport to a mine
+    usage: /mine <name>
+  spawn:
+    description: Teleport to the spawn
+    usage: /spawn
+  rankup:
+    description: Rank up
+    usage: /rankup
 permissions:
   prison.use:
     default: true

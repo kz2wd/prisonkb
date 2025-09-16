@@ -1,15 +1,99 @@
 mines:
-  example:
-    world: world
-    min:
-      - -100
-      - 50
-      - -100
-    max:
-      - 100
-      - 250
-      - 100
-    regen-seconds: 30
+
+
+loot-tables:
+  STONE:
+    - material: COBBLESTONE
+      chance: 1.0
+      amount: 1
+      xp: 1.0
+      currency: 0.1
+      sound: block.stone.hit
+    - material: EMERALD
+      chance: 0.01
+      amount: 1
+      xp: 10.0
+      currency: 5.0
+      sound: entity.experience_orb.pickup
+
+  COAL_ORE:
+    - material: COAL
+      chance: 1.0
+      amount: 2
+      xp: 2.0
+      currency: 0.2
+      sound: block.stone.break
+    - material: EMERALD
+      chance: 0.005
+      amount: 1
+      xp: 20.0
+      currency: 10.0
+      sound: entity.experience_orb.pickup
+
+  IRON_ORE:
+    - material: RAW_IRON
+      chance: 1.0
+      amount: 1
+      xp: 4.0
+      currency: 0.5
+      sound: block.anvil.place
+
+  GOLD_ORE:
+    - material: RAW_GOLD
+      chance: 1.0
+      amount: 1
+      xp: 6.0
+      currency: 1.0
+      sound: block.anvil.place
+
+  DIAMOND_ORE:
+    - material: DIAMOND
+      chance: 1.0
+      amount: 1
+      xp: 25.0
+      currency: 20.0
+      sound: entity.player.levelup
+
+  EMERALD_ORE:
+    - material: EMERALD
+      chance: 1.0
+      amount: 1
+      xp: 30.0
+      currency: 25.0
+      sound: entity.player.levelup
+
+  LAPIS_ORE:
+    - material: LAPIS_LAZULI
+      chance: 1.0
+      amount: 4
+      xp: 5.0
+      currency: 2.0
+      sound: entity.item.pickup
+
+  REDSTONE_ORE:
+    - material: REDSTONE
+      chance: 1.0
+      amount: 4
+      xp: 6.0
+      currency: 2.0
+      sound: entity.item.pickup
+
+  NETHER_QUARTZ_ORE:
+    - material: QUARTZ
+      chance: 1.0
+      amount: 1
+      xp: 3.0
+      currency: 1.0
+      sound: block.basalt.hit
+
+  ANCIENT_DEBRIS:
+    - material: NETHERITE_SCRAP
+      chance: 1.0
+      amount: 1
+      xp: 50.0
+      currency: 100.0
+      sound: block.respawn_anchor.ambient
+
 
 block-prices:
   # Basics
