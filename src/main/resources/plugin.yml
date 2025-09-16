@@ -1,0 +1,15 @@
+name: Prisonkb
+version: 1.0.0
+main: org.cludivers.prisonkb.Prisonkb
+description: Prison plugin
+author: kz2wd
+api-version: '1.21.8'
+commands:
+  prison:
+    description: Show your prison stats (rank, xp, currency, prestige)
+    usage: /prison
+permissions:
+  prison.use:
+    default: true
+  prison.admin:
+    default: op
