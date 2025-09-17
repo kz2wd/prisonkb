@@ -44,7 +44,7 @@ object MinesListener: Listener {
     }
 
     private fun getMineLetter(i: Int): String {
-        return Ranks.getRank(i).name
+        return Ranks.getRank(i).name.lowercase()
     }
 
     private fun generateMines() {

@@ -53,8 +53,7 @@ class Mine(val name: String, val min: Block, val max: Block, val regenMinutes: I
 
     fun teleportToEntrance(player: Player) {
         val region = region()
-        val center = region.center
-        center.add(0.0, region.height / 2.0, 0.0)
+        val center = region.center.add(0.0, region.height / 2.0 + 1.1, 0.0)
         player.teleport(Location(player.world, center.x(), center.y(), center.z()))
     }
 
